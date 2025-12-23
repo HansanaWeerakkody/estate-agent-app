@@ -19,26 +19,21 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     setFilters(searchFilters);
     
     const filtered = properties.filter(prop => {
-      // Type Match
       const typeMatch = searchFilters.type === 'any' || prop.type === searchFilters.type;
 
-      // Price Match
       const propPrice = Number(prop.price);
       const minP = searchFilters.minPrice ? Number(searchFilters.minPrice) : 0;
       const maxP = searchFilters.maxPrice ? Number(searchFilters.maxPrice) : 99999999;
       const priceMatch = propPrice >= minP && propPrice <= maxP;
 
-      // Bedrooms Match
       const propBed = Number(prop.bedrooms);
       const minB = searchFilters.minBedrooms ? Number(searchFilters.minBedrooms) : 0;
       const maxB = searchFilters.maxBedrooms ? Number(searchFilters.maxBedrooms) : 20;
       const bedMatch = propBed >= minB && propBed <= maxB;
 
-      // Postcode Match
       const postcodeMatch = !searchFilters.postcode || 
         prop.location.toLowerCase().includes(searchFilters.postcode.toLowerCase());
 
-      // Date Match
       let dateMatch = true;
       if (searchFilters.dateFrom) {
         const pDate = prop.added;
@@ -59,11 +54,9 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
 
   return (
     <div className="page-container">
-      {/* Search Bar */}
       <SearchForm onSearch={handleSearch} filters={filters} setFilters={setFilters} />
       
       <div className="content-area">
-        {/* Results Grid */}
         <div className="main-results">
           <div className="results-header">
             <h2>Available Properties ({properties.length} found)</h2>
@@ -77,7 +70,6 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
           />
         </div>
 
-        {/* Favourites Sidebar */}
         <FavouritesList 
           favourites={favourites}
           onRemove={removeFav}
