@@ -1,57 +1,84 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SearchPage from './pages/SearchPage';
-import PropertyPage from './pages/PropertyPage';
+import React, { useState, useEffect } from 'react';
+import SearchPage from './components/SearchPage';
+import PropertyModal from './components/PropertyModal';
+import propertyData from './data/properties.json';
 import './App.css';
 
 function App() {
-  // Global State for Favourites (Lifted State)
+  const [properties, setProperties] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
   const [favourites, setFavourites] = useState([]);
+  const [selectedProperty, setSelectedProperty] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  useEffect(() => {
+    // Process properties to add additional images
+    const processedProperties = propertyData.properties.map(prop => ({
+      ...prop,
+      dateAdded: new Date(`${prop.added.day} ${prop.added.month} ${prop.added.year}`),
+      // Create array of 6-8 images for each property
+      images: Array.from({length: 6}, (_, i) => 
+        prop.picture.replace('small', `${i + 1}`).replace('.jpg', `${i + 1}.jpg`)
+      )
+    }));
+    setProperties(processedProperties);
+    setFilteredProperties(processedProperties);
+  }, []);
 
-  // Function to add item (prevents duplicates)
   const addToFavourites = (property) => {
-    if (!favourites.some(fav => fav.id === property.id)) {
+    if (!favourites.find(fav => fav.id === property.id)) {
       setFavourites([...favourites, property]);
-    } else {
-      alert("Property already in favourites!");
     }
   };
 
-  // Function to remove item
-  const removeFromFavourites = (id) => {
-    setFavourites(favourites.filter(prop => prop.id !== id));
+  const removeFromFavourites = (propertyId) => {
+    setFavourites(favourites.filter(fav => fav.id !== propertyId));
   };
 
-  // Function to clear all
   const clearFavourites = () => {
     setFavourites([]);
   };
 
+  const handlePropertyClick = (property) => {
+    setSelectedProperty(property);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProperty(null);
+  };
+
+  const handleSearch = (filteredResults) => {
+    setFilteredProperties(filteredResults);
+  };
+
   return (
-    <Router>
-      <div className="App">
-        <header className="app-header">
-          <h1>Estate Agent App</h1>
-        </header>
-        <Routes>
-          <Route 
-            path="/" 
-            element={
-              <SearchPage 
-                favourites={favourites} 
-                addFav={addToFavourites} 
-                removeFav={removeFromFavourites} 
-                clearFav={clearFavourites}
-              />
-            } 
-          />
-          <Route 
-            path="/property/:id" 
-            element={<PropertyPage addFav={addToFavourites} />} 
-          />
-        </Routes>
-      </div>
-    </Router>
+    <div className="App">
+      <header className="app-header">
+        <h1>🏠 Estate Agent Property Search</h1>
+        <p>Find your dream property in London and surrounding areas</p>
+      </header>
+      
+      <SearchPage 
+        properties={properties}
+        onSearch={handleSearch}
+        favourites={favourites}
+        addFav={addToFavourites}
+        removeFav={removeFromFavourites}
+        clearFav={clearFavourites}
+        onPropertyClick={handlePropertyClick}
+      />
+      
+      {isModalOpen && selectedProperty && (
+        <PropertyModal 
+          property={selectedProperty}
+          onClose={closeModal}
+          onAddToFavourite={() => addToFavourites(selectedProperty)}
+          isInFavourites={favourites.some(fav => fav.id === selectedProperty.id)}
+        />
+      )}
+    </div>
   );
 }
 
