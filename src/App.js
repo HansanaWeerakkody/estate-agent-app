@@ -10,16 +10,13 @@ function App() {
   const [favourites, setFavourites] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   useEffect(() => {
-    // Process properties to add additional images
+    // Process the properties to add images array if not present
     const processedProperties = propertyData.properties.map(prop => ({
       ...prop,
-      dateAdded: new Date(`${prop.added.day} ${prop.added.month} ${prop.added.year}`),
-      // Create array of 6-8 images for each property
-      images: Array.from({length: 6}, (_, i) => 
-        prop.picture.replace('small', `${i + 1}`).replace('.jpg', `${i + 1}.jpg`)
-      )
+      // If the property doesn't have an images array, create one with 6 images (using the same picture for all as fallback)
+      images: prop.images || Array(6).fill(prop.picture)
     }));
     setProperties(processedProperties);
     setFilteredProperties(processedProperties);
@@ -61,7 +58,7 @@ function App() {
       </header>
       
       <SearchPage 
-        properties={properties}
+        properties={filteredProperties}
         onSearch={handleSearch}
         favourites={favourites}
         addFav={addToFavourites}
