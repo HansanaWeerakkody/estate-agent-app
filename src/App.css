@@ -243,12 +243,6 @@ body {
   color: #718096;
 }
 
-.card-actions { 
-  display: flex; 
-  justify-content: space-between; 
-  margin-top: 10px; 
-}
-
 .view-btn { 
   text-decoration: none; 
   background: #3498db; 
@@ -390,10 +384,5 @@ body {
   
   .content-area {
     flex-direction: column-reverse;
-  }
-  
-  .modal-content {
-    width: 95%;
-    max-height: 95vh;
   }
 }
