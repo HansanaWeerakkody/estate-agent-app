@@ -1,12 +1,27 @@
 import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { FaTimes, FaBed, FaMapMarkerAlt, FaCalendar, FaHeart, FaRulerCombined } from 'react-icons/fa';
-import 'react-tabs/style/react-tabs.css';
+import DOMPurify from "dompurify";
 import './Modal.css';
 
 const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Security: Sanitize HTML content
+  const sanitizeHTML = (html) => {
+    return DOMPurify.sanitize(html, {
+      ALLOWED_TAGS: ['p', 'br', 'b', 'i', 'em', 'strong'],
+      ALLOWED_ATTR: []
+    });
+  };
+
+  // Security: Escape special characters for display
+  const escapeHTML = (text) => {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  };
 
   const getMonthIndex = (monthStr) => {
     const months = ["January", "February", "March", "April", "May", "June",
@@ -16,56 +31,89 @@ const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) 
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => 
-      prevIndex === property.images.length - 1 ? 0 : prevIndex + 1
+      prevIndex === 5 ? 0 : prevIndex + 1
     );
   };
 
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) => 
-      prevIndex === 0 ? property.images.length - 1 : prevIndex - 1
+      prevIndex === 0 ? 5 : prevIndex - 1
     );
   };
+
+  // Create array of 6 image paths
+  const generateImagePaths = () => {
+    const baseName = property.picture.replace('small', '').replace('.jpg', '');
+    return Array.from({length: 6}, (_, i) => 
+      `./images/${property.id}pic${i + 1}.jpg`
+    );
+  };
+
+  const imagePaths = generateImagePaths();
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>{property.type} in {property.location.split(',')[0]}</h2>
-          <button className="close-button" onClick={onClose}>
+          <h2>
+            {/* Security: Escape property type and location */}
+            {escapeHTML(property.type)} in {escapeHTML(property.location.split(',')[0])}
+          </h2>
+          <button 
+            className="close-button"
+            onClick={onClose}
+            aria-label="Close modal"
+          >
             <FaTimes />
           </button>
         </div>
 
         <div className="modal-body">
+          {/* Image Gallery Section */}
           <div className="gallery-section">
             <div className="main-image-container">
               <img 
-                src={property.images[currentImageIndex] || property.picture} 
+                src={imagePaths[currentImageIndex] || property.picture} 
                 alt={`${property.type} view ${currentImageIndex + 1}`}
                 className="main-image"
+                loading="lazy"
               />
-              <button className="nav-button prev" onClick={prevImage}>&lt;</button>
-              <button className="nav-button next" onClick={nextImage}>&gt;</button>
+              <button 
+                className="nav-button prev" 
+                onClick={prevImage}
+                aria-label="Previous image"
+              >
+                &lt;
+              </button>
+              <button 
+                className="nav-button next" 
+                onClick={nextImage}
+                aria-label="Next image"
+              >
+                &gt;
+              </button>
             </div>
             
             <div className="thumbnail-container">
-              {property.images.map((image, index) => (
+              {imagePaths.map((image, index) => (
                 <img
                   key={index}
-                  src={image || property.picture}
+                  src={image}
                   alt={`Thumbnail ${index + 1}`}
                   className={`thumbnail ${index === currentImageIndex ? 'active' : ''}`}
                   onClick={() => setCurrentImageIndex(index)}
+                  loading="lazy"
                 />
               ))}
             </div>
           </div>
 
+          {/* Property Details */}
           <div className="property-details-section">
             <div className="quick-info">
               <div className="info-item price">
                 <h3>£{property.price.toLocaleString()}</h3>
-                <p>{property.tenure}</p>
+                <p>{escapeHTML(property.tenure)}</p>
               </div>
               
               <div className="info-features">
@@ -75,7 +123,7 @@ const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) 
                 </div>
                 <div className="feature">
                   <FaMapMarkerAlt />
-                  <span>{property.location}</span>
+                  <span>{escapeHTML(property.location)}</span>
                 </div>
                 <div className="feature">
                   <FaCalendar />
@@ -84,6 +132,7 @@ const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) 
               </div>
             </div>
 
+            {/* Tabs Navigation */}
             <Tabs selectedIndex={activeTab} onSelect={setActiveTab}>
               <TabList className="tabs-navigation">
                 <Tab className="tab-button">Description</Tab>
@@ -94,13 +143,14 @@ const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) 
               <TabPanel>
                 <div className="tab-content">
                   <h3>Property Description</h3>
-                  <p dangerouslySetInnerHTML={{ __html: property.description }} />
+                  {/* Security: Use sanitized HTML */}
+                  <div dangerouslySetInnerHTML={{ __html: sanitizeHTML(property.description) }} />
                   <div className="property-features">
                     <h4>Key Features:</h4>
                     <ul>
                       <li>{property.bedrooms} bedrooms</li>
-                      <li>{property.tenure}</li>
-                      <li>Located in {property.location}</li>
+                      <li>{escapeHTML(property.tenure)}</li>
+                      <li>Located in {escapeHTML(property.location)}</li>
                       <li>Available from {property.added.month} {property.added.year}</li>
                     </ul>
                   </div>
@@ -113,11 +163,12 @@ const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) 
                   <div className="floor-plan">
                     <div className="placeholder-box">
                       <FaRulerCombined className="floor-plan-icon" />
-                      <p>Floor Plan for {property.type} in {property.location.split(',')[0]}</p>
+                      <p>Floor Plan for {escapeHTML(property.type)}</p>
                       <img 
                         src={property.picture} 
                         alt="Floor Plan" 
                         style={{filter: 'grayscale(100%)', width: '300px', marginTop: '15px'}}
+                        loading="lazy"
                       />
                     </div>
                   </div>
@@ -137,24 +188,27 @@ const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) 
                       marginHeight="0"
                       marginWidth="0"
                       src={`https://maps.google.com/maps?q=${encodeURIComponent(property.location)}&z=15&output=embed`}
+                      loading="lazy"
                     ></iframe>
                     <p className="map-note">
-                      <FaMapMarkerAlt /> {property.location}
+                      <FaMapMarkerAlt /> {escapeHTML(property.location)}
                     </p>
                   </div>
                 </div>
               </TabPanel>
             </Tabs>
 
+            {/* Action Buttons */}
             <div className="modal-actions">
               <button 
                 className={`favourite-btn ${isInFavourites ? 'in-favourites' : ''}`}
                 onClick={onAddToFavourite}
+                aria-label={isInFavourites ? 'Remove from favourites' : 'Add to favourites'}
               >
                 <FaHeart /> {isInFavourites ? 'In Favourites' : 'Add to Favourites'}
               </button>
               <button className="contact-btn">
-                Contact Agent
+                📞 Contact Agent
               </button>
               <button className="close-btn" onClick={onClose}>
                 Close
