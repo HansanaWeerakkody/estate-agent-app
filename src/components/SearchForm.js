@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DropdownList, NumberPicker } from 'react-widgets';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -6,8 +6,7 @@ import 'react-widgets/styles.css';
 
 const SearchForm = ({ onSearch, filters, setFilters }) => {
   const propertyTypes = ['any', 'House', 'Flat'];
-  
-  // Format date for display
+
   const formatDate = (date) => {
     if (!date) return '';
     return date.toLocaleDateString('en-GB');
@@ -25,71 +24,111 @@ const SearchForm = ({ onSearch, filters, setFilters }) => {
     });
   };
 
-  // Security: Sanitize input
   const sanitizeInput = (input) => {
-    return input.replace(/[<>]/g, '');
+    return input ? input.replace(/[<>]/g, '') : '';
   };
+
+  const handleClearAll = () => {
+    const initialFilters = {
+      type: 'any',
+      minPrice: '',
+      maxPrice: '',
+      minBedrooms: '',
+      maxBedrooms: '',
+      postcode: '',
+      dateFrom: null
+    };
+
+    setFilters(initialFilters);
+    onSearch(initialFilters);
+  };
+
+  useEffect(() => {
+    const form = document.querySelector('.search-bar form');
+    if (form) {
+      form.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  }, [filters]);
 
   return (
     <div className="search-bar">
-      <form onSubmit={handleSubmit}>
-        {/* Property Type - Using React Widgets DropdownList */}
-        <div className="form-group">
-          <label htmlFor="property-type">Property Type:</label>
-          <DropdownList
-            id="property-type"
-            data={propertyTypes}
-            value={filters.type}
-            onChange={value => handleChange('type', value)}
-            placeholder="Select type..."
-            className="react-widget"
-          />
-        </div>
+      <form onSubmit={handleSubmit} id="search-form">
 
-        {/* Price Range - Using React Widgets NumberPicker */}
+        {/* ================= ROW 1 – FILTERS ================= */}
         <div className="form-row">
+          {/* Property Type */}
           <div className="form-group">
-            <label htmlFor="min-price">Min Price:</label>
-            <NumberPicker
-              id="min-price"
-              min={0}
-              value={filters.minPrice || 0}
-              onChange={value => handleChange('minPrice', value)}
-              placeholder="Min price"
+            <label htmlFor="property-type">Property Type</label>
+            <DropdownList
+              id="property-type"
+              data={propertyTypes}
+              value={filters.type}
+              onChange={value => handleChange('type', value)}
+              placeholder="Select type..."
               className="react-widget"
             />
           </div>
-          
+
+          {/* Min Price */}
           <div className="form-group">
-            <label htmlFor="max-price">Max Price:</label>
+            <label htmlFor="min-price">Min Price</label>
+            <NumberPicker
+              id="min-price"
+              min={0}
+              value={filters.minPrice || ''}
+              onChange={value => handleChange('minPrice', value)}
+              placeholder="Min"
+              className="react-widget"
+            />
+          </div>
+
+          {/* Max Price */}
+          <div className="form-group">
+            <label htmlFor="max-price">Max Price</label>
             <NumberPicker
               id="max-price"
               min={0}
               value={filters.maxPrice || ''}
               onChange={value => handleChange('maxPrice', value)}
-              placeholder="Max price"
+              placeholder="Max"
               className="react-widget"
+            />
+          </div>
+
+          {/* Postcode */}
+          <div className="form-group">
+            <label htmlFor="postcode">Postcode Area</label>
+            <input
+              id="postcode"
+              type="text"
+              placeholder="e.g. BR5, NW1"
+              value={filters.postcode || ''}
+              onChange={e => handleChange('postcode', sanitizeInput(e.target.value))}
+              maxLength="4"
+              pattern="[A-Za-z0-9]{2,4}"
             />
           </div>
         </div>
 
-        {/* Bedrooms Range - Using React Widgets NumberPicker */}
-        <div className="form-row">
+        {/* ================= ROW 2 – FILTERS + ACTIONS ================= */}
+        <div className="form-row actions-row">
+          {/* Min Bedrooms */}
           <div className="form-group">
-            <label htmlFor="min-bedrooms">Min Bedrooms:</label>
+            <label htmlFor="min-bedrooms">Min Beds</label>
             <NumberPicker
               id="min-bedrooms"
               min={1}
               max={10}
-              value={filters.minBedrooms || 1}
+              value={filters.minBedrooms || ''}
               onChange={value => handleChange('minBedrooms', value)}
               placeholder="Min"
               className="react-widget"
             />
           </div>
-          
+
+          {/* Max Bedrooms */}
           <div className="form-group">
-            <label htmlFor="max-bedrooms">Max Bedrooms:</label>
+            <label htmlFor="max-bedrooms">Max Beds</label>
             <NumberPicker
               id="max-bedrooms"
               min={1}
@@ -100,74 +139,40 @@ const SearchForm = ({ onSearch, filters, setFilters }) => {
               className="react-widget"
             />
           </div>
-        </div>
 
-        {/* Postcode - Secured Input */}
-        <div className="form-group">
-          <label htmlFor="postcode">Postcode Area:</label>
-          <input
-            id="postcode"
-            type="text"
-            placeholder="e.g. BR5, NW1"
-            value={filters.postcode}
-            onChange={e => handleChange('postcode', sanitizeInput(e.target.value))}
-            maxLength="4"
-            pattern="[A-Za-z0-9]{2,4}"
-            title="Enter postcode area (e.g., BR5, NW1)"
-          />
-        </div>
+          {/* Date */}
+          <div className="form-group">
+            <label htmlFor="date-added">Added After</label>
+            <DatePicker
+              id="date-added"
+              selected={filters.dateFrom}
+              onChange={date => handleChange('dateFrom', date)}
+              placeholderText="Select date"
+              dateFormat="dd/MM/yyyy"
+              isClearable
+            />
+            {filters.dateFrom && (
+              <span className="date-display">
+                {formatDate(filters.dateFrom)}
+              </span>
+            )}
+          </div>
 
-        {/* Date Added - React DatePicker */}
-        <div className="form-group">
-          <label htmlFor="date-added">Added After:</label>
-          <DatePicker
-            id="date-added"
-            selected={filters.dateFrom}
-            onChange={date => handleChange('dateFrom', date)}
-            placeholderText="Select date..."
-            dateFormat="dd/MM/yyyy"
-            showYearDropdown
-            yearDropdownItemNumber={10}
-            scrollableYearDropdown
-            className="date-picker"
-          />
-          {filters.dateFrom && (
-            <span className="date-display">{formatDate(filters.dateFrom)}</span>
-          )}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="form-actions">
+          {/* Search Button */}
           <button type="submit" className="search-btn">
-            🔍 Search Properties
+            🔍 Search
           </button>
-          <button 
-            type="button" 
+
+          {/* Clear Button */}
+          <button
+            type="button"
             className="clear-btn"
-            onClick={() => {
-              setFilters({
-                type: 'any',
-                minPrice: '',
-                maxPrice: '',
-                minBedrooms: '',
-                maxBedrooms: '',
-                postcode: '',
-                dateFrom: null
-              });
-              onSearch({
-                type: 'any',
-                minPrice: '',
-                maxPrice: '',
-                minBedrooms: '',
-                maxBedrooms: '',
-                postcode: '',
-                dateFrom: null
-              });
-            }}
+            onClick={handleClearAll}
           >
-            🗑️ Clear All
+            🗑️ Clear
           </button>
         </div>
+
       </form>
     </div>
   );
