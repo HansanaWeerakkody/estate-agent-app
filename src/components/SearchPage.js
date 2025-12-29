@@ -16,10 +16,13 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
   });
 
   const [filteredProperties, setFilteredProperties] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
 
-  // Initialize with all properties
+  // Initialize with all properties when component mounts
   useEffect(() => {
-    setFilteredProperties(properties);
+    if (properties && properties.length > 0) {
+      setFilteredProperties(properties);
+    }
   }, [properties]);
 
   // Helper function to convert month string to index
@@ -79,9 +82,10 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     });
   }, [getMonthIndex]);
 
-  // Handle search when filters change
+  // Handle search when user clicks search button
   const handleSearch = useCallback((searchFilters) => {
     setFilters(searchFilters);
+    setHasSearched(true);
     
     const filtered = filterProperties(searchFilters, properties);
     setFilteredProperties(filtered);
@@ -92,7 +96,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     }
   }, [properties, filterProperties, onSearch]);
 
-  // Clear all filters function
+  // Clear all search filters and show all properties
   const handleClearAll = useCallback(() => {
     const initialFilters = {
       type: 'any',
@@ -105,6 +109,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     };
     
     setFilters(initialFilters);
+    setHasSearched(false);
     setFilteredProperties(properties);
     
     if (onSearch) {
@@ -112,69 +117,51 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     }
   }, [properties, onSearch]);
 
-  // Add clear button handler to window for global access
-  useEffect(() => {
-    const handleGlobalClear = (e) => {
-      if (e.detail && e.detail.action === 'clearAll') {
-        handleClearAll();
-      }
-    };
-    
-    window.addEventListener('clearFilters', handleGlobalClear);
-    
-    return () => {
-      window.removeEventListener('clearFilters', handleGlobalClear);
-    };
-  }, [handleClearAll]);
-
   return (
     <div className="page-container">
       <SearchForm 
         onSearch={handleSearch} 
         filters={filters} 
         setFilters={setFilters}
+        onClear={handleClearAll}
       />
       
       <div className="content-area">
         <div className="main-results">
           <div className="results-header">
-            <h2>Available Properties ({filteredProperties.length} found)</h2>
+            <h2>
+              {hasSearched 
+                ? `Search Results (${filteredProperties.length} found)` 
+                : `Available Properties (${properties.length} total)`}
+            </h2>
             <p>Click on any property card for detailed information</p>
-            <div className="search-info">
-              {filters.type !== 'any' && (
-                <span className="filter-tag">Type: {filters.type}</span>
-              )}
-              {filters.minPrice && (
-                <span className="filter-tag">Min Price: £{parseInt(filters.minPrice).toLocaleString()}</span>
-              )}
-              {filters.maxPrice && (
-                <span className="filter-tag">Max Price: £{parseInt(filters.maxPrice).toLocaleString()}</span>
-              )}
-              {filters.minBedrooms && (
-                <span className="filter-tag">Min Beds: {filters.minBedrooms}</span>
-              )}
-              {filters.maxBedrooms && (
-                <span className="filter-tag">Max Beds: {filters.maxBedrooms}</span>
-              )}
-              {filters.postcode && (
-                <span className="filter-tag">Postcode: {filters.postcode}</span>
-              )}
-              {filters.dateFrom && (
-                <span className="filter-tag">
-                  Added After: {new Date(filters.dateFrom).toLocaleDateString('en-GB')}
-                </span>
-              )}
-              {Object.values(filters).some(val => 
-                val !== 'any' && val !== '' && val !== null && val !== undefined
-              ) && (
-                <button 
-                  onClick={handleClearAll}
-                  className="clear-results-btn"
-                >
-                  Clear Search Results
-                </button>
-              )}
-            </div>
+            {hasSearched && (
+              <div className="search-info">
+                {filters.type !== 'any' && (
+                  <span className="filter-tag">Type: {filters.type}</span>
+                )}
+                {filters.minPrice && (
+                  <span className="filter-tag">Min Price: £{parseInt(filters.minPrice).toLocaleString()}</span>
+                )}
+                {filters.maxPrice && (
+                  <span className="filter-tag">Max Price: £{parseInt(filters.maxPrice).toLocaleString()}</span>
+                )}
+                {filters.minBedrooms && (
+                  <span className="filter-tag">Min Beds: {filters.minBedrooms}</span>
+                )}
+                {filters.maxBedrooms && (
+                  <span className="filter-tag">Max Beds: {filters.maxBedrooms}</span>
+                )}
+                {filters.postcode && (
+                  <span className="filter-tag">Postcode: {filters.postcode}</span>
+                )}
+                {filters.dateFrom && (
+                  <span className="filter-tag">
+                    Added After: {new Date(filters.dateFrom).toLocaleDateString('en-GB')}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
           
           <PropertyList 

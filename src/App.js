@@ -6,7 +6,6 @@ import './App.css';
 
 function App() {
   const [properties, setProperties] = useState([]);
-  const [filteredProperties, setFilteredProperties] = useState([]);
   const [favourites, setFavourites] = useState(() => {
     // Load favourites from localStorage on initial render
     const savedFavourites = localStorage.getItem('propertyFavourites');
@@ -25,7 +24,6 @@ function App() {
       )
     }));
     setProperties(processedProperties);
-    setFilteredProperties(processedProperties);
   }, []);
 
   // Save favourites to localStorage whenever they change
@@ -85,7 +83,9 @@ function App() {
   };
 
   const handleSearch = (filteredResults) => {
-    setFilteredProperties(filteredResults);
+    // This callback can be used if parent needs to know about search results
+    // For example, for analytics or other tracking
+    console.log('Search results:', filteredResults.length, 'properties found');
   };
 
   return (
@@ -105,8 +105,7 @@ function App() {
       </header>
       
       <SearchPage 
-        properties={filteredProperties}
-        allProperties={properties} // Pass all properties for filtering
+        properties={properties}  // ← PASS THE COMPLETE, UNFILTERED LIST
         onSearch={handleSearch}
         favourites={favourites}
         addFav={addToFavourites}

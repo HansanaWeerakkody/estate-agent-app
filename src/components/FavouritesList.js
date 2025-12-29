@@ -171,7 +171,7 @@ const FavouritesList = ({ favourites, onAdd, onRemove, onClear }) => {
             </div>
             
             <div className="favourites-actions">
-              <button onClick={onClear} className="clear-btn">
+              <button onClick={onClear} className="clear-favourites-btn">
                 🗑️ Clear All Favourites
               </button>
             </div>
