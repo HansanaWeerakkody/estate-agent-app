@@ -123,6 +123,11 @@ function App() {
           isInFavourites={isInFavourites(selectedProperty.id)}
         />
       )}
+      
+      {/* Simple Footer Added Here */}
+      <footer className="simple-footer">
+        <p>&copy; {new Date().getFullYear()} Estate Agent Property Search. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
