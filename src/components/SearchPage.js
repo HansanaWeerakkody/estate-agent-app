@@ -3,7 +3,7 @@ import PropertyList from './PropertyList';
 import FavouritesList from './FavouritesList';
 import SearchForm from './SearchForm';
 
-const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clearFav, onPropertyClick }) => {
+const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clearFav, onPropertyClick, onClear }) => {
   const [filters, setFilters] = useState({
     type: 'any',
     minPrice: '',
@@ -11,8 +11,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     minBedrooms: '',
     maxBedrooms: '',
     postcode: '',
-    dateFrom: null,
-    dateTo: null
+    dateFrom: null
   });
 
   const [filteredProperties, setFilteredProperties] = useState([]);
@@ -30,6 +29,14 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     const months = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"];
     return months.indexOf(monthStr);
+  }, []);
+
+  // Helper function to normalize date to start of day
+  const normalizeDate = useCallback((date) => {
+    if (!date) return null;
+    const normalized = new Date(date);
+    normalized.setHours(0, 0, 0, 0);
+    return normalized;
   }, []);
 
   // Filter properties function
@@ -67,20 +74,27 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
         }
       }
 
-      // Date Match
+      // Date Match - CHANGED: Show properties added ON the selected date
       if (searchFilters.dateFrom) {
+        // Create property date object
         const pDate = prop.added;
-        const propDateObj = new Date(pDate.year, getMonthIndex(pDate.month), pDate.day);
-        const filterDate = new Date(searchFilters.dateFrom);
+        const propDate = new Date(pDate.year, getMonthIndex(pDate.month), pDate.day);
+        normalizeDate(propDate);
         
-        if (propDateObj < filterDate) {
-          return false;
-        }
+        // Create filter date object and normalize it
+        const filterDate = normalizeDate(new Date(searchFilters.dateFrom));
+        
+        // Compare if dates are the same day
+        if (!filterDate || !propDate) return false;
+        
+        return (
+          filterDate.getTime() === propDate.getTime()
+        );
       }
 
       return true;
     });
-  }, [getMonthIndex]);
+  }, [getMonthIndex, normalizeDate]);
 
   // Handle search when user clicks search button
   const handleSearch = useCallback((searchFilters) => {
@@ -112,10 +126,15 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     setHasSearched(false);
     setFilteredProperties(properties);
     
+    // Notify parent component
+    if (onClear) {
+      onClear();
+    }
+    
     if (onSearch) {
       onSearch(properties);
     }
-  }, [properties, onSearch]);
+  }, [properties, onSearch, onClear]);
 
   return (
     <div className="page-container">
@@ -157,7 +176,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
                 )}
                 {filters.dateFrom && (
                   <span className="filter-tag">
-                    Added After: {new Date(filters.dateFrom).toLocaleDateString('en-GB')}
+                    Added On: {new Date(filters.dateFrom).toLocaleDateString('en-GB')}
                   </span>
                 )}
               </div>

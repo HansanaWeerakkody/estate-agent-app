@@ -180,7 +180,7 @@ const SearchForm = ({ onSearch, filters, setFilters, onClear }) => {
           {/* Date */}
           <div className="form-group">
             <label htmlFor="date-added" className="form-label">
-              Added After
+              Added On Date
             </label>
             <DatePicker
               id="date-added"
@@ -190,7 +190,7 @@ const SearchForm = ({ onSearch, filters, setFilters, onClear }) => {
               dateFormat="dd/MM/yyyy"
               isClearable
               className="react-datepicker-wrapper"
-              aria-label="Date added after"
+              aria-label="Date added on"
               showYearDropdown
               yearDropdownItemNumber={10}
               scrollableYearDropdown
