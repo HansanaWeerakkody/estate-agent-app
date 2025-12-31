@@ -1269,7 +1269,7 @@
   /* =============================================
      FOOTER
      ============================================= */
-  .simple-footer {
+  .footer {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: #ffffff;
     padding: 20px;
@@ -1279,175 +1279,128 @@
     font-size: 14px;
   }
   
-  /* =============================================
-     RESPONSIVE DESIGN
-     ============================================= */
-  
-  /* Tablet Layout */
-  @media (max-width: 1024px) {
-    .content-area {
-      flex-direction: column;
-      min-height: auto;
-    }
-  
-    .property-grid {
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-  
-    .search-bar .form-row {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  
-    .search-bar .form-actions {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  
-    .favourites-zone {
-      position: static;
-      min-height: 450px;
-      max-height: 450px;
-      margin-top: 1.5rem;
-    }
-  
-    .favourites-container {
-      min-height: 320px;
-      max-height: 320px;
-    }
-  
-    .main-image-container {
-      height: 300px;
-    }
+/* =============================================
+   RESPONSIVE DESIGN
+   ============================================= */
+
+/* General fix for all screen sizes where favourites might overlap footer */
+@media (max-width: 1080px) {
+  .content-area {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .property-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  .search-bar .form-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .search-bar .form-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .favourites-zone {
+    position: static;
+    min-height: 400px;
+    max-height: 400px;
+    margin-top: 1.5rem;
+    margin-bottom: 5.5rem; /* Increased */
+  }
+
+  .favourites-badge {
+    display: none !important;
+  }
+
+  .favourites-container {
+    min-height: 320px;
+    max-height: 320px;
+  }
+
+  .main-image-container {
+    height: 300px;
+  }
+
+  .page-container {
+    padding-bottom: 4rem; /* Ensure enough space */
+  }
+
+  .footer {
+    margin-top: 4rem; /* Increased margin */
+    padding: 25px 20px;
   }
   
-  /* Mobile Layout */
-  @media (max-width: 768px) {
-    .app-header {
-      padding: 1.75rem 1.5rem;
-    }
-  
-    .app-header h1 {
-      font-size: 2rem;
-      padding-right: 140px;
-    }
-  
-    .app-header p {
-      font-size: 1rem;
-    }
-  
-    .favourites-badge {
-      top: 1.5rem;
-      right: 1.5rem;
-      padding: 0.6rem 1.25rem;
-    }
-  
-    .page-container {
-      padding: 1.5rem;
-      padding-bottom: 2rem;
-    }
-  
-    .search-bar {
-      padding: 1.25rem;
-    }
-  
-    .search-bar .form-row {
-      grid-template-columns: 1fr;
-    }
-  
-    .search-bar .form-actions {
-      grid-template-columns: 1fr;
-    }
-  
-    .property-grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-  
-    .content-area {
-      gap: 1.5rem;
-    }
-  
-    .favourites-zone {
-      min-height: 400px;
-      max-height: 400px;
-      padding: 1.5rem;
-    }
-  
-    .modal-content {
-      width: 95%;
-      max-height: 95vh;
-    }
-    
-    .modal-header h2 {
-      font-size: 1.2rem;
-    }
-    
-    .main-image-container {
-      height: 250px;
-    }
-    
-    .quick-info {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-    }
-    
-    .info-features {
-      flex-direction: column;
-      gap: 10px;
-    }
-    
-    .tabs-navigation {
-      flex-direction: column;
-    }
-    
-    .modal-actions {
-      flex-direction: column;
-    }
-    
-    .modal-actions button {
-      width: 100%;
-    }
+  /* Specific fix: Add a minimum content height to prevent overlap */
+  .main-results {
+    min-height: 650px;
   }
   
-  /* Small Mobile */
-  @media (max-width: 480px) {
-    .app-header h1 {
-      font-size: 1.75rem;
-      padding-right: 120px;
-    }
-  
-    .favourites-badge {
-      padding: 0.5rem 1rem;
-    }
-  
-    .search-bar {
-      padding: 1rem;
-    }
-  
-    .favourites-zone {
-      min-height: 380px;
-      max-height: 380px;
-    }
+  /* Ensure there's always space after favourites */
+  .favourites-zone + * {
+    margin-top: 2rem;
+  }
+}
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  /* FIX: Search bar items stack one by one on mobile */
+  .search-bar .form-row {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
   }
   
-  /* Accessibility */
-  button:focus-visible,
-  input:focus-visible,
-  select:focus-visible,
-  .rw-widget:focus-within,
-  .react-datepicker-wrapper:focus-within {
-    outline: 2px solid #667eea;
-    outline-offset: 2px;
+  .search-bar .form-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
   }
   
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  /* Ensure all form elements take full width without exceeding page */
+  .search-bar .form-group {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
+  
+  .search-bar input,
+  .search-bar select,
+  .search-bar .react-datepicker-wrapper,
+  .search-bar .react-widget,
+  .search-bar .postcode-combobox {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Ensure search buttons are full width */
+  .search-bar .form-actions .search-btn,
+  .search-bar .form-actions .clear-btn {
+    width: 100% !important;
+    margin: 0 !important;
+    grid-column: 1 !important;
+  }
+  
+  /* FIX: Add more aggressive spacing for mobile */
+  .favourites-zone {
+    margin-bottom: 4rem !important; /* Force more space */
+  }
+
+  .favourites-badge {
+    display: none !important;
+  }
+  
+  .page-container {
+    padding-bottom: 5rem !important; /* Force more padding */
+  }
+  
+  .footer {
+    margin-top: 5rem !important; /* Force more margin */
+  }
+}
+
+

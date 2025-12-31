@@ -125,7 +125,7 @@ function App() {
       )}
       
       {/* Simple Footer Added Here */}
-      <footer className="simple-footer">
+      <footer className="footer">
         <p>&copy; {new Date().getFullYear()} Estate Agent Property Search. All rights reserved.</p>
       </footer>
     </div>
