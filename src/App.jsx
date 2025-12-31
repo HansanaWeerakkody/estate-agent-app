@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SearchPage from './Components/SearchPage';
 import PropertyModal from './Components/PropertyModal';
 import propertyData from './data/properties.json';
+import { escapeHTML, logSecurityEvent } from './utils/security';
 import './App.css';
 
 function App() {
