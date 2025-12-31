@@ -5,7 +5,7 @@ import SearchForm from './SearchForm';
 
 const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clearFav, onPropertyClick, onClear }) => {
   const [filters, setFilters] = useState({
-    type: 'any',
+    type: 'Any',
     minPrice: '',
     maxPrice: '',
     minBedrooms: '',
@@ -45,7 +45,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
 
     return propertiesList.filter(prop => {
       // Type Match
-      if (searchFilters.type !== 'any' && prop.type !== searchFilters.type) {
+      if (searchFilters.type !== 'Any' && prop.type !== searchFilters.type) {
         return false;
       }
 

@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
-import { DropdownList, NumberPicker } from 'react-widgets';
+import { Combobox, NumberPicker } from 'react-widgets'; // Changed from DropdownList to Combobox
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-widgets/styles.css';
 
 const SearchForm = ({ onSearch, filters, setFilters, onClear }) => {
-  const propertyTypes = ['any', 'House', 'Flat'];
+  const propertyTypes = ['Any', 'House', 'Flat'];
   const formRef = useRef(null);
 
   const handleSubmit = (e) => {
@@ -28,7 +28,7 @@ const SearchForm = ({ onSearch, filters, setFilters, onClear }) => {
     e?.preventDefault();
     
     const initialFilters = {
-      type: 'any',
+      type: 'Any',
       minPrice: '',
       maxPrice: '',
       minBedrooms: '',
@@ -69,19 +69,32 @@ const SearchForm = ({ onSearch, filters, setFilters, onClear }) => {
       >
         {/* ================= ROW 1 – MAIN FILTERS ================= */}
         <div className="form-row">
-          {/* Property Type */}
+          {/* Property Type - CHANGED TO COMBOBOX */}
           <div className="form-group">
             <label htmlFor="property-type" className="form-label">
               Property Type
             </label>
-            <DropdownList
+            <Combobox
               id="property-type"
               data={propertyTypes}
               value={filters.type}
               onChange={value => handleChange('type', value)}
-              placeholder="Select type..."
+              placeholder="Select type or type h/house or f/flat..."
               className="react-widget"
-              aria-label="Select property type"
+              aria-label="Select or type property type"
+              filter="contains"
+              hideEmptyPopup
+              textField={(item) => typeof item === 'string' ? item : ''}
+              // This ensures the value is properly displayed
+              onBlur={(e) => {
+                // If the typed value doesn't match any option, keep it as is
+                const typedValue = e.target.value;
+                if (typedValue && !propertyTypes.includes(typedValue)) {
+                  // You could either keep the typed value or reset to current filter
+                  // For now, we'll keep whatever was typed
+                  handleChange('type', typedValue);
+                }
+              }}
             />
           </div>
 
