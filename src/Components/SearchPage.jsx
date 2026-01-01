@@ -74,7 +74,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
         }
       }
 
-      // Date Match - CHANGED: Show properties added ON the selected date
+      // Date Match - Show properties added AFTER the selected date
       if (searchFilters.dateFrom) {
         // Create property date object
         const pDate = prop.added;
@@ -84,12 +84,11 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
         // Create filter date object and normalize it
         const filterDate = normalizeDate(new Date(searchFilters.dateFrom));
         
-        // Compare if dates are the same day
+        // Compare if property date is AFTER filter date
         if (!filterDate || !propDate) return false;
         
-        return (
-          filterDate.getTime() === propDate.getTime()
-        );
+        // Return true if property date is AFTER filter date
+        return propDate > filterDate;
       }
 
       return true;
@@ -156,7 +155,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
             <p>Click on any property card for detailed information</p>
             {hasSearched && (
               <div className="search-info">
-                {filters.type !== 'any' && (
+                {filters.type !== 'Any' && (
                   <span className="filter-tag">Type: {filters.type}</span>
                 )}
                 {filters.minPrice && (
@@ -176,7 +175,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
                 )}
                 {filters.dateFrom && (
                   <span className="filter-tag">
-                    Added On: {new Date(filters.dateFrom).toLocaleDateString('en-GB')}
+                    Added After: {new Date(filters.dateFrom).toLocaleDateString('en-GB')}
                   </span>
                 )}
               </div>
