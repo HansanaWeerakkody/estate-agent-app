@@ -108,14 +108,13 @@ const FavouritesList = ({ favourites, onAdd, onRemove, onClear }) => {
         
         {favourites.length === 0 ? (
           <div className="empty-state">
-            <p className="empty-msg">Drag properties here or use the Save button</p>
+            <p className="empty-msg">Add your favourite properties</p>
             <div 
               className="drop-zone"
               onDrop={handleDropAdd}
               onDragOver={handleDragOver}
             >
-              <p>Drop properties here to add to favourites</p>
-              <small className="drag-instruction">Drag from property cards</small>
+              <p>Drag properties here or use the Save button</p>
             </div>
           </div>
         ) : (
@@ -166,7 +165,6 @@ const FavouritesList = ({ favourites, onAdd, onRemove, onClear }) => {
               onClick={(e) => e.stopPropagation()}
             >
               <p>🗑️ Drag here to remove from favourites</p>
-              <small>Release items here to delete</small>
             </div>
             
             <div className="favourites-actions">
