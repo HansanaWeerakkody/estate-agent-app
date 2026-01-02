@@ -193,7 +193,7 @@ const SearchForm = ({ onSearch, filters, setFilters, onClear }) => {
           {/* Date */}
           <div className="form-group">
             <label htmlFor="date-added" className="form-label">
-              Added On Date
+              Added After Date
             </label>
             <DatePicker
               id="date-added"
