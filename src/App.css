@@ -617,7 +617,7 @@
   }
   
   .favourites-container:not(.empty) .empty-state {
-    display: none;
+    display: flex;
   }
   
   .favourites-container:not(.empty) .fav-list,
@@ -973,7 +973,7 @@
     margin: 0;
     font-size: 1.5rem;
   }
-  
+
   .close-button {
     background: rgba(255, 255, 255, 0.2);
     border: none;
@@ -1002,17 +1002,24 @@
   .main-image-container {
     position: relative;
     width: 100%;
-    height: 400px;
+    min-height: 400px; /* Minimum height instead of fixed */
+    max-height: 500px; /* Maximum height to prevent excessive stretching */
     overflow: hidden;
     border-radius: 8px;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5; /* Background for loading */
   }
   
   .main-image {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: auto; /* Changed from 100% to auto for full image display */
+    max-height: 500px; /* Limit max height */
+    object-fit: contain; /* Changed from cover to contain to show full image */
     border-radius: 8px;
+    display: block;
   }
   
   .nav-button {
@@ -1030,11 +1037,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.3s;
+    transition: all 0.3s;
+    z-index: 10;
   }
   
   .nav-button:hover {
     background: rgba(0, 0, 0, 0.7);
+    transform: translateY(-50%) scale(1.1);
   }
   
   .nav-button.prev {
@@ -1045,43 +1054,58 @@
     right: 15px;
   }
   
+  /* Thumbnail Container - Updated */
   .thumbnail-container {
     display: flex;
     gap: 10px;
     overflow-x: auto;
-    padding: 10px 0;
+    padding: 15px 0 5px 0;
+    margin: 10px -5px 0 -5px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  .thumbnail:first-child {
+    margin-left: 10px; /* Pull first thumbnail left */
   }
   
   .thumbnail {
-    width: 80px;
-    height: 60px;
+    width: 100px; /* Increased from 80px */
+    height: 75px; /* Increased from 60px */
     object-fit: cover;
     border-radius: 4px;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 3px solid transparent;
     transition: all 0.3s;
+    flex-shrink: 0;
   }
   
   .thumbnail:hover {
     transform: scale(1.05);
+    border-color: rgba(102, 126, 234, 0.5);
   }
   
   .thumbnail.active {
     border-color: #667eea;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
-  /* Property Details Section */
+  /* Property Details Section - Slight adjustment */
   .property-details-section {
     padding: 20px 30px;
   }
-  
-  .quick-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eaeaea;
+
+  .modal-content .react-tabs__tab:focus,
+  .modal-content .tab-button:focus {
+  outline: 2px solid transparent !important;
+  outline-offset: 2px !important;
+  }
+
+  .modal-content .react-tabs__tab:focus-visible {
+  outline: 2px solid #667eea !important;
+  outline-offset: 2px !important;
   }
   
   .info-item.price h3 {
@@ -1192,6 +1216,21 @@
     font-size: 3rem;
     color: #ccc;
     margin-bottom: 15px;
+  }
+
+  .floor-plan-image {
+    width: 100%;
+    max-width: 1000px; /* Fixed maximum width */
+    height: auto;
+    max-height: 400px; /* Fixed maximum height */
+    object-fit: contain; /* Show entire image without cropping */
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: white;
+    padding: 10px;
+    display: block;
+    margin: 0 auto;
   }
   
   /* Map Container */
