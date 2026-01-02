@@ -11,38 +11,81 @@ export const generateCSPHeaders = (options = {}) => {
       // Default source for everything
       'default-src': ["'self'"],
       
-      // JavaScript sources - CRITICAL FOR XSS PROTECTION
+      // JavaScript sources
       'script-src': [
         "'self'",
         allowUnsafeInline ? "'unsafe-inline'" : null,
         useNonce ? `'nonce-${nonce}'` : null,
+        // Google Maps domains
+        "https://maps.google.com",
+        "https://maps.googleapis.com",
+        "https://*.google.com",
+        "https://*.googleapis.com",
+        "https://*.gstatic.com",
         ...(options.allowedScripts || [])
       ].filter(Boolean),
       
       // CSS sources
       'style-src': [
         "'self'",
-        allowUnsafeInline ? "'unsafe-inline'" : null,
-        useNonce ? `'nonce-${nonce}'` : null
+        "'unsafe-inline'", // Required for Google Maps
+        // Google Fonts
+        "https://fonts.googleapis.com",
+        // Google Maps CSS
+        "https://*.google.com",
+        "https://*.googleapis.com",
+        "https://*.gstatic.com"
       ].filter(Boolean),
       
       // Image sources
-      'img-src': ["'self'", 'data:', 'https:'],
+      'img-src': [
+        "'self'", 
+        'data:', 
+        'blob:', 
+        'https:',
+        // All Google Maps image domains
+        "https://*.google.com",
+        "https://*.googleapis.com",
+        "https://*.gstatic.com",
+        "https://*.ggpht.com",
+        "https://streetviewpixels-pa.googleapis.com"
+      ],
       
       // Font sources
-      'font-src': ["'self'", 'https:'],
+      'font-src': [
+        "'self'", 
+        "data:",
+        "https://fonts.gstatic.com",
+        "https://*.gstatic.com"
+      ],
       
       // Connect sources (XHR, WebSockets)
-      'connect-src': ["'self'"],
+      'connect-src': [
+        "'self'",
+        // Google Maps API calls
+        "https://*.google.com",
+        "https://*.googleapis.com",
+        "https://*.gstatic.com"
+      ],
       
       // Media sources (video, audio)
-      'media-src': ["'self'"],
+      'media-src': ["'self'", "https://*.google.com"],
       
       // Block plugins (Flash, Java)
       'object-src': ["'none'"],
       
-      // Block iframes
-      'frame-src': ["'none'"],
+      // Frame sources - CRITICAL FOR MAPS
+      'frame-src': [
+        // Google Maps iframe domains
+        "https://www.google.com",
+        "https://maps.google.com",
+        "https://maps.googleapis.com",
+        "https://*.google.com",
+        "https://*.googleapis.com"
+      ],
+      
+      // Worker sources
+      'worker-src': ["'self'", "blob:"],
       
       // Base URL for relative URLs
       'base-uri': ["'self'"],
@@ -54,7 +97,7 @@ export const generateCSPHeaders = (options = {}) => {
       'frame-ancestors': ["'none'"],
       
       // Upgrade insecure requests to HTTPS
-      'upgrade-insecure-requests': process.env.NODE_ENV === 'production' ? [] : null
+      'upgrade-insecure-requests': []
     };
   
     // Filter out null entries and convert to CSP string
@@ -66,7 +109,7 @@ export const generateCSPHeaders = (options = {}) => {
       })
       .join('; ');
   };
-  
+    
    // Generate CSP meta tag for HTML implementation
    
   export const generateCSPMetaTag = (options = {}) => {
