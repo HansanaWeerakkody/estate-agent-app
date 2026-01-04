@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "homepage": "https://hansanaweerakkody.github.io/estate-agent-app",
+  "homepage": "https://HansanaWeerakkody.github.io/estate-agent-app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
