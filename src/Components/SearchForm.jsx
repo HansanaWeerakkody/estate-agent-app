@@ -85,13 +85,10 @@ const SearchForm = ({ onSearch, filters, setFilters, onClear }) => {
               filter="contains"
               hideEmptyPopup
               textField={(item) => typeof item === 'string' ? item : ''}
-              // This ensures the value is properly displayed
               onBlur={(e) => {
                 // If the typed value doesn't match any option, keep it as is
                 const typedValue = e.target.value;
                 if (typedValue && !propertyTypes.includes(typedValue)) {
-                  // You could either keep the typed value or reset to current filter
-                  // For now, we'll keep whatever was typed
                   handleChange('type', typedValue);
                 }
               }}
@@ -154,7 +151,7 @@ const SearchForm = ({ onSearch, filters, setFilters, onClear }) => {
           </div>
         </div>
 
-        {/* ================= ROW 2 – SECONDARY FILTERS + ACTIONS ================= */}
+        {/* ROW 2 – SECONDARY FILTERS + ACTIONS */}
         <div className="form-actions">
           {/* Min Bedrooms */}
           <div className="form-group">

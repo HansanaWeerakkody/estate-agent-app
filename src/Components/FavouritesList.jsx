@@ -24,13 +24,13 @@ const FavouritesList = ({ favourites, onAdd, onRemove, onClear }) => {
     e.preventDefault();
     e.stopPropagation();
     
-    // Try to get data from different possible sources
+    //  Get data from different possible sources
     let propertyId = null;
     
-    // First try to get from text/plain (for favourites items)
+    // First get from text/plain (for favourites items)
     propertyId = e.dataTransfer.getData('text/plain');
     
-    // If not found, try to get from application/json (for property cards)
+    // If not found,  get from application/json (for property cards)
     if (!propertyId) {
       try {
         const propertyData = e.dataTransfer.getData('application/json');
@@ -43,7 +43,7 @@ const FavouritesList = ({ favourites, onAdd, onRemove, onClear }) => {
       }
     }
     
-    // If we have a property ID, remove it
+    // If  have a property ID, remove it
     if (propertyId && onRemove) {
       onRemove(propertyId);
       setDraggedItem(null); // Reset dragged item

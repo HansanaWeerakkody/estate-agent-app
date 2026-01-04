@@ -73,7 +73,7 @@ const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) 
       ],
       5: [ // Property 5 features
         { icon: <FaBath />, text: "Wet room with premium finishes" },
-        { icon: <FaCar />, text: "Secure underground parking space" },
+        { icon: <FaCar />, text: "Secure parking space" },
         { icon: <FaTree />, text: "Communal gardens with children's play area" },
         { icon: <FaUtensils />, text: "Breakfast bar and wine cooler" },
         { icon: <FaWifi />, text: "Ethernet ports in every room" },
@@ -105,7 +105,7 @@ const PropertyModal = ({ property, onClose, onAddToFavourite, isInFavourites }) 
       return propertyFeaturesMap[idNum];
     }
 
-    // Default features for properties beyond 7 (if you add more later)
+    // Default features for properties beyond 7 
     return [
       { icon: <FaBath />, text: `${property.bedrooms} well-appointed bathrooms` },
       { icon: <FaCar />, text: "Convenient parking available" },
