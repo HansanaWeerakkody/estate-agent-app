@@ -3,18 +3,20 @@ import { FaBed, FaHeart } from 'react-icons/fa';
 
 const PropertyCard = ({ property, onPropertyClick, onAddToFavourites, isInFavourites }) => {
   const handleDragStart = (e) => {
-    // Set data for drag and drop
     e.dataTransfer.setData('text/plain', property.id);
     e.dataTransfer.setData('application/json', JSON.stringify(property));
     e.dataTransfer.effectAllowed = 'copy';
-    
-    // Add visual feedback
     e.currentTarget.classList.add('dragging');
   };
 
   const handleDragEnd = (e) => {
-    // Remove visual feedback
     e.currentTarget.classList.remove('dragging');
+  };
+
+  // Format the date to show day, month, and year
+  const formatDate = () => {
+    const { day, month, year } = property.added;
+    return `${day} ${month} ${year}`;
   };
 
   return (
@@ -23,7 +25,6 @@ const PropertyCard = ({ property, onPropertyClick, onAddToFavourites, isInFavour
       draggable="true"
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      onClick={() => onPropertyClick(property)}
     >
       {isInFavourites && (
         <div className="fav-indicator" title="In favourites">
@@ -70,7 +71,7 @@ const PropertyCard = ({ property, onPropertyClick, onAddToFavourites, isInFavour
         
         <div className="property-footer">
           <span className="property-location">{property.location.split(' ').pop()}</span>
-          <span className="property-date">Added: {property.added.day} {property.added.month}</span>
+          <span className="property-date">Added: {formatDate()}</span>
         </div>
         
         <button 
