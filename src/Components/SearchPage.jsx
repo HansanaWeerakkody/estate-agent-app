@@ -39,14 +39,25 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
     return normalized;
   }, []);
 
-  // Filter properties function
+  // Filter properties function 
   const filterProperties = useCallback((searchFilters, propertiesList) => {
     if (!propertiesList || propertiesList.length === 0) return [];
 
     return propertiesList.filter(prop => {
-      // Type Match
-      if (searchFilters.type !== 'Any' && prop.type !== searchFilters.type) {
-        return false;
+      // Type Match 
+      const filterType = searchFilters.type ? searchFilters.type.trim() : 'Any';
+      const isAny = filterType.toLowerCase() === 'any';
+      
+      if (!isAny) {
+        // Normalize both values for case-insensitive comparison
+        const propType = prop.type ? prop.type.trim() : '';
+        const normalizedFilterType = filterType.toLowerCase();
+        const normalizedPropType = propType.toLowerCase();
+        
+        // Check if property type matches filter type
+        if (normalizedPropType !== normalizedFilterType) {
+          return false;
+        }
       }
 
       // Price Match
@@ -76,12 +87,10 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
 
       // Date Match - Show properties added AFTER the selected date
       if (searchFilters.dateFrom) {
-        // Create property date object
         const pDate = prop.added;
         const propDate = new Date(pDate.year, getMonthIndex(pDate.month), pDate.day);
         normalizeDate(propDate);
         
-        // Create filter date object and normalize it
         const filterDate = normalizeDate(new Date(searchFilters.dateFrom));
         
         // Compare if property date is AFTER filter date
@@ -112,7 +121,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
   // Clear all search filters and show all properties
   const handleClearAll = useCallback(() => {
     const initialFilters = {
-      type: 'any',
+      type: 'Any',
       minPrice: '',
       maxPrice: '',
       minBedrooms: '',
@@ -175,7 +184,11 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
                 )}
                 {filters.dateFrom && (
                   <span className="filter-tag">
-                    Added After: {new Date(filters.dateFrom).toLocaleDateString('en-GB')}
+                    Added After: {new Date(filters.dateFrom).toLocaleDateString('en-GB', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: 'numeric'
+                    })}
                   </span>
                 )}
               </div>
@@ -188,7 +201,7 @@ const SearchPage = ({ properties, onSearch, favourites, addFav, removeFav, clear
             onAddToFavourites={addFav}
           />
         </div>
-
+  
         <FavouritesList 
           favourites={favourites}
           onRemove={removeFav}
