@@ -6,7 +6,6 @@ export default defineConfig({
   plugins: [react()],
   
   // IMPORTANT: For GitHub Pages deployment
-  // Replace 'estate-agent-app' with your actual repository name
   base: '/estate-agent-app/',
   
   // Build configuration for production
@@ -40,7 +39,7 @@ export default defineConfig({
     host: true // Allow access from other devices on network
   },
   
-  // Preview server configuration (for npm run preview)
+  // Preview server configuration
   preview: {
     port: 4173,
     host: true
