@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "homepage": "https://YOUR-USERNAME.github.io/estate-agent-app",
-
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -22,7 +20,6 @@
     "test:sanitize": "jest --testNamePattern=\"sanitizeHTML\" src/utils/security.test.js",
     "test:validate": "jest --testNamePattern=\"validate\" src/utils/security.test.js"
   },
-
   "dependencies": {
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
@@ -35,7 +32,6 @@
     "react-tabs": "^6.1.0",
     "react-widgets": "^5.8.4"
   },
-
   "devDependencies": {
     "@babel/core": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
