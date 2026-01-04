@@ -6,18 +6,19 @@
         "bedrooms": 3,
         "price": 750000,
         "tenure": "Freehold",
-        "description": "Attractive three bedroom semi-detached family home...",
+        "description": "This attractive three-bedroom semi-detached family home is situated on the sought-after Petts Wood Road in Orpington, offering a well-balanced layout ideal for modern family living. The property is thoughtfully designed with generous living spaces, good natural light throughout, and a practical layout that suits both everyday life and entertaining. Externally, the home provides a pleasant outdoor environment and convenient parking, while its location offers easy access to local amenities, schools, and transport links, making it a highly desirable choice for families and professionals alike.",
         "location": "Petts Wood Road, Petts Wood, Orpington BR5",
         "picture": "./images/prop1pic1.jpg",
         "images": [
           "./images/prop1pic1.jpg",
-          "./images/prop1pic2.jpg",
-          "./images/prop1pic3.jpg",
-          "./images/prop1pic4.jpg",
-          "./images/prop1pic5.jpg",
-          "./images/prop1pic6.jpg"
+          "./images/prop1pic2.png",
+          "./images/prop1pic3.png",
+          "./images/prop1pic4.png",
+          "./images/prop1pic5.png",
+          "./images/prop1pic6.png",
+          "./images/prop1pic7.png"
         ],
-        "floorPlan": "./images/floorplan1.jpg",
+        "floorPlan": "./images/floorplan1.png",
         "coordinates": {
           "lat": 51.3891,
           "lng": 0.0742
@@ -34,18 +35,19 @@
         "bedrooms": 2,
         "price": 399995,
         "tenure": "Freehold",
-        "description": "Presented in excellent decorative order throughout...",
+        "description": "Presented in excellent decorative order throughout, this well-maintained two-bedroom freehold property is located on Crofton Road in Orpington and offers comfortable, well-planned living in a desirable residential area. The home provides a bright and welcoming interior with thoughtfully arranged living spaces, suitable for both everyday use and entertaining. Benefiting from a secure environment, pleasant outdoor space, and convenient access to local amenities, transport links, and schools, this property is an ideal choice for buyers seeking a practical and modern home in a well-connected location.",
         "location": "Crofton Road Orpington BR6",
-        "picture": "./images/prop2pic1.jpg",
+        "picture": "./images/prop2pic1.png",
         "images": [
-          "./images/prop2pic1.jpg",
-          "./images/prop2pic2.jpg",
-          "./images/prop2pic3.jpg",
-          "./images/prop2pic4.jpg",
-          "./images/prop2pic5.jpg",
-          "./images/prop2pic6.jpg"
+          "./images/prop2pic1.png",
+          "./images/prop2pic2.png",
+          "./images/prop2pic3.png",
+          "./images/prop2pic4.png",
+          "./images/prop2pic5.png",
+          "./images/prop2pic6.png",
+          "./images/prop2pic7.png"
         ],
-        "floorPlan": "./images/floorplan2.jpg",
+        "floorPlan": "./images/floorplan2.png",
         "coordinates": {
           "lat": 51.3742,
           "lng": 0.1022
@@ -62,18 +64,19 @@
         "bedrooms": 4,
         "price": 650000,
         "tenure": "Freehold",
-        "description": "Spacious detached house perfect for growing families...",
+        "description": "This spacious four-bedroom detached house is located on the High Street in Bromley and is ideally suited for growing families seeking generous living space in a convenient location. The property offers a well-proportioned layout with multiple versatile living areas, providing flexibility for family life, entertaining, and home working. Well maintained throughout, the home benefits from a comfortable indoor–outdoor balance and a practical design that supports modern living. Situated close to local amenities, reputable schools, and excellent transport links, this freehold property presents an excellent opportunity for families looking to settle in a well-connected and desirable area.",
         "location": "High Street, Bromley BR1",
-        "picture": "./images/prop3-1.jpg",
+        "picture": "./images/prop3pic1.png",
         "images": [
-          "./images/prop3-1.jpg",
-          "./images/prop3-2.jpg",
-          "./images/prop3-3.jpg",
-          "./images/prop3-4.jpg",
-          "./images/prop3-5.jpg",
-          "./images/prop3-6.jpg"
+          "./images/prop3pic1.png",
+          "./images/prop3pic2.png",
+          "./images/prop3pic3.png",
+          "./images/prop3pic4.png",
+          "./images/prop3pic5.png",
+          "./images/prop3pic6.png",
+          "./images/prop3pic7.png"
         ],
-        "floorPlan": "./images/floorplan3.jpg",
+        "floorPlan": "./images/floorplan3.png",
         "coordinates": {
           "lat": 51.4056,
           "lng": 0.0142
@@ -90,18 +93,19 @@
         "bedrooms": 1,
         "price": 250000,
         "tenure": "Leasehold",
-        "description": "Cozy modern flat in the heart of the city...",
+        "description": "This cozy one-bedroom leasehold flat is ideally located on Baker Street in London NW1, offering modern city living in a highly sought-after central location. The property is well presented throughout, with a thoughtfully designed layout that maximises space and comfort, making it suitable for professionals or first-time buyers. Residents benefit from a secure and well-maintained building, along with easy access to local amenities, restaurants, and excellent transport links, providing a convenient and vibrant urban lifestyle in the heart of the capital.",
         "location": "Baker Street, London NW1",
-        "picture": "./images/prop4-1.jpg",
+        "picture": "./images/prop4pic1.png",
         "images": [
-          "./images/prop4-1.jpg",
-          "./images/prop4-2.jpg",
-          "./images/prop4-3.jpg",
-          "./images/prop4-4.jpg",
-          "./images/prop4-5.jpg",
-          "./images/prop4-6.jpg"
+          "./images/prop4pic1.png",
+          "./images/prop4pic2.png",
+          "./images/prop4pic3.png",
+          "./images/prop4pic4.png",
+          "./images/prop4pic5.png",
+          "./images/prop4pic6.png",
+          "./images/prop4pic7.png"
         ],
-        "floorPlan": "./images/floorplan4.jpg",
+        "floorPlan": "./images/floorplan4.png",
         "coordinates": {
           "lat": 51.5238,
           "lng": -0.1586
@@ -118,16 +122,17 @@
         "bedrooms": 5,
         "price": 950000,
         "tenure": "Freehold",
-        "description": "Luxury villa with a swimming pool and extensive grounds...",
+        "description": "This impressive five-bedroom freehold property is located in the highly desirable Dulwich Village area of London SE21, offering spacious and refined living ideal for families seeking a premium home. Set within well-maintained surroundings, the property provides generous accommodation with a well-considered layout that supports both everyday family life and entertaining. The home enjoys a sense of privacy while remaining conveniently close to local amenities, green spaces, reputable schools, and transport links, making it an excellent choice for those looking to combine luxury living with a village-style atmosphere in London.",
         "location": "Dulwich Village, London SE21",
-        "picture": "./images/prop5-1.jpg",
+        "picture": "./images/prop5pic1.png",
         "images": [
-          "./images/prop5-1.jpg",
-          "./images/prop5-2.jpg",
-          "./images/prop5-3.jpg",
-          "./images/prop5-4.jpg",
-          "./images/prop5-5.jpg",
-          "./images/prop5-6.jpg"
+          "./images/prop5pic1.png",
+          "./images/prop5pic2.png",
+          "./images/prop5pic3.png",
+          "./images/prop5pic4.png",
+          "./images/prop5pic5.png",
+          "./images/prop5pic6.png",
+          "./images/prop5pic7.png"
         ],
         "floorPlan": "./images/floorplan5.jpg",
         "coordinates": {
@@ -146,18 +151,19 @@
         "bedrooms": 2,
         "price": 450000,
         "tenure": "Share of Freehold",
-        "description": "Bright and airy flat with balcony views...",
+        "description": "This bright and airy two-bedroom flat is situated in the popular Greenwich area of London SE10 and is offered with a share of freehold. The property benefits from a well-designed layout that maximises natural light and provides comfortable, modern living space throughout. Set within a well-maintained and secure development, the flat offers a pleasant balance of privacy and convenience, with easy access to local amenities, riverside walks, historic attractions, and excellent transport links, making it an ideal choice for professionals or small families seeking a well-connected London home.",
         "location": "Greenwich, London SE10",
-        "picture": "./images/prop6-1.jpg",
+        "picture": "./images/prop6pic1.png",
         "images": [
-          "./images/prop6-1.jpg",
-          "./images/prop6-2.jpg",
-          "./images/prop6-3.jpg",
-          "./images/prop6-4.jpg",
-          "./images/prop6-5.jpg",
-          "./images/prop6-6.jpg"
+          "./images/prop6pic1.png",
+          "./images/prop6pic2.png",
+          "./images/prop6pic3.png",
+          "./images/prop6pic4.png",
+          "./images/prop6pic5.png",
+          "./images/prop6pic6.png",
+          "./images/prop6pic7.png"
         ],
-        "floorPlan": "./images/floorplan6.jpg",
+        "floorPlan": "./images/floorplan6.png",
         "coordinates": {
           "lat": 51.4830,
           "lng": -0.0096
@@ -174,18 +180,19 @@
         "bedrooms": 3,
         "price": 550000,
         "tenure": "Freehold",
-        "description": "Charming Victorian terrace house with original features...",
+        "description": "This charming three-bedroom freehold Victorian terrace house is located in the desirable area of Chislehurst, Kent BR7, and offers characterful living within a well-established residential setting. The property retains a traditional layout with well-proportioned rooms, period charm, and a warm, welcoming atmosphere throughout. Positioned close to local amenities, green spaces, reputable schools, and transport links, this home is ideally suited for families or buyers seeking a blend of classic character and everyday convenience in a sought-after location.",
         "location": "Chislehurst, Kent BR7",
-        "picture": "./images/prop7-1.jpg",
+        "picture": "./images/prop7pic1.png",
         "images": [
-          "./images/prop7-1.jpg",
-          "./images/prop7-2.jpg",
-          "./images/prop7-3.jpg",
-          "./images/prop7-4.jpg",
-          "./images/prop7-5.jpg",
-          "./images/prop7-6.jpg"
+          "./images/prop7pic1.png",
+          "./images/prop7pic2.png",
+          "./images/prop7pic3.png",
+          "./images/prop7pic4.png",
+          "./images/prop7pic5.png",
+          "./images/prop7pic6.png",
+          "./images/prop7pic7.png"
         ],
-        "floorPlan": "./images/floorplan7.jpg",
+        "floorPlan": "./images/floorplan7.png",
         "coordinates": {
           "lat": 51.4175,
           "lng": 0.0686
