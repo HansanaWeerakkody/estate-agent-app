@@ -48,8 +48,6 @@ describe('FavouritesList Component', () => {
     expect(screen.getByText('❤️ Favourites (0)')).toBeInTheDocument();
     expect(screen.getByText('Add your favourite properties')).toBeInTheDocument();
     expect(screen.getByText('Drag properties here or use the Save button')).toBeInTheDocument();
-    // REMOVED: expect(screen.getByText('Drop properties here to add to favourites')).toBeInTheDocument();
-    // REMOVED: expect(screen.getByText('Drag from property cards')).toBeInTheDocument();
   });
 
   test('2. Renders favourites list correctly', () => {
@@ -117,7 +115,7 @@ describe('FavouritesList Component', () => {
       />
     );
 
-    // Find the drop zone by its text content - use the ACTUAL text from your component
+    // Find the drop zone by its text content
     const dropZone = screen.getByText('Drag properties here or use the Save button').parentElement;
     
     // Create mock DataTransfer
@@ -146,7 +144,7 @@ describe('FavouritesList Component', () => {
 
     const removeZone = screen.getByText('🗑️ Drag here to remove from favourites').parentElement;
     
-    // Create mock DataTransfer that returns property ID as text/plain
+    // Create mock DataTransfer that returns property ID as text
     let getDataCallCount = 0;
     const mockDataTransfer = {
       getData: jest.fn((type) => {
@@ -183,7 +181,6 @@ describe('FavouritesList Component', () => {
     );
   
     expect(screen.getByText('🗑️ Drag here to remove from favourites')).toBeInTheDocument();
-    // REMOVED: expect(screen.getByText('Release items here to delete')).toBeInTheDocument();
   });
   
   test('8. Escapes HTML in property details', () => {
@@ -206,8 +203,6 @@ describe('FavouritesList Component', () => {
       />
     );
 
-    // Look for the ESCAPED version - not the raw HTML
-    // The escapeHTML function converts < to &lt; and > to &gt;
     expect(screen.getByText(/&lt;script&gt;alert\("xss"\)&lt;\/script&gt;/)).toBeInTheDocument();
     expect(screen.getByText(/&lt;img src="x" onerror="malicious\(\)"&gt;/)).toBeInTheDocument();
   });
@@ -251,7 +246,6 @@ describe('FavouritesList Component', () => {
       />
     );
 
-    // Should show "123 Test Street" not "123 Test Street, London, BR5"
     expect(screen.getByText('123 Test Street')).toBeInTheDocument();
     expect(screen.queryByText('London, BR5')).not.toBeInTheDocument();
   });

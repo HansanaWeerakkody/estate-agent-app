@@ -64,11 +64,10 @@ describe('SearchPage Component', () => {
       />
     );
 
-    // Option 1: Check by aria-label (more specific)
+    // Check by aria-label (more specific)
     expect(screen.getByRole('button', { name: 'Search properties' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Clear all filters' })).toBeInTheDocument();
     
-    // Option 2: OR check by button text (if buttons have visible text)
     // Using getAllByText and checking if they're inside buttons
     const searchButtons = screen.getAllByText('Search');
     const clearButtons = screen.getAllByText('Clear');

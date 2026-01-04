@@ -12,7 +12,7 @@ import {
     logSecurityEvent,
     getSecurityLogs,
     clearSecurityLogs,
-    // NEW: CSP and JSX functions
+    // CSP and JSX functions
     generateCSPHeaders,
     generateCSPMetaTag,
     generateNonce,
@@ -78,8 +78,6 @@ import {
       console.warn = originalConsoleWarn;
       console.error = originalConsoleError;
     });
-  
-    // ==================== EXISTING TESTS (keep these) ====================
     
     describe('escapeHTML()', () => {
       test('1. Escapes dangerous HTML characters to prevent XSS', () => {
@@ -322,7 +320,7 @@ import {
   
     describe('logSecurityEvent()', () => {
       beforeEach(() => {
-        // Reset localStorage for these tests
+        // Reset localStorage for tests
         localStorageMock.clear();
       });
   
@@ -405,7 +403,7 @@ import {
         clearSecurityLogs();
         
         expect(localStorageMock.removeItem).toHaveBeenCalledWith('securityLogs');
-        // Instead of checking store directly, check that getSecurityLogs returns empty
+        //  check that getSecurityLogs returns empty
         localStorageMock.getItem.mockReturnValue(null);
         const logs = getSecurityLogs();
         expect(logs).toEqual([]);
@@ -416,12 +414,11 @@ import {
           throw new Error('Storage error');
         });
         
-        // Should not throw
         expect(() => clearSecurityLogs()).not.toThrow();
       });
     });
   
-    // ==================== NEW TESTS FOR CSP AND JSX ENCODING ====================
+    //  NEW TESTS FOR CSP AND JSX ENCODING 
   
     describe('CSP Implementation Tests', () => {
         test('1. generateCSPHeaders returns valid CSP string', () => {
@@ -430,7 +427,7 @@ import {
           expect(typeof csp).toBe('string');
           expect(csp).toContain("default-src 'self'");
           expect(csp).toContain("object-src 'none'");
-          expect(csp).toContain("frame-src"); // Changed: just check it exists, not 'none'
+          expect(csp).toContain("frame-src"); 
           expect(csp).toContain("base-uri 'self'");
           expect(csp).toContain("form-action 'self'");
           expect(csp).toContain("frame-ancestors 'none'");
@@ -450,8 +447,8 @@ import {
           expect(metaTag).toContain('<meta');
           expect(metaTag).toContain('http-equiv="Content-Security-Policy"');
           expect(metaTag).toContain('content="');
-          expect(metaTag).toContain('&#x27;'); // Single quotes escaped
-          expect(metaTag).toContain('&#58;');  // Colons escaped
+          expect(metaTag).toContain('&#x27;'); 
+          expect(metaTag).toContain('&#58;');  
           expect(metaTag).not.toContain('<script>');
         });
       
@@ -469,22 +466,18 @@ import {
           // Test development
           process.env.NODE_ENV = 'development';
           const devCSP = generateCSPHeaders();
-          expect(devCSP).toContain("'unsafe-inline'"); // Should contain unsafe-inline
+          expect(devCSP).toContain("'unsafe-inline'"); 
           
           // Test production
           process.env.NODE_ENV = 'production';
           const prodCSP = generateCSPHeaders();
           
-          // In production, if your implementation still includes unsafe-inline for styles,
-          // update the test to reflect reality OR fix the implementation
+          //  test to reflect reality OR fix the implementation
           if (prodCSP.includes("'unsafe-inline'")) {
-            // If your implementation always includes unsafe-inline for style-src,
             // update the test expectation:
             console.warn('Note: style-src includes unsafe-inline even in production');
-            // Keep test passing if that's what your implementation does
             expect(prodCSP).toContain("'unsafe-inline'");
           } else {
-            // If implementation removes unsafe-inline in production
             expect(prodCSP).not.toContain("'unsafe-inline'");
           }
           
@@ -607,10 +600,8 @@ import {
         
         const encoded = autoEncodeData(data);
         
-        // Test that encoding happened (values are changed)
+        // Test that encoding happened
         expect(encoded.title).not.toBe(data.title);
-        // Check if autoEncodeData actually sanitizes URLs - it might not
-        // The implementation of autoEncodeData determines what we expect
         if (sanitizeURL(data.imageUrl) === '') {
           // If sanitizeURL returns empty for dangerous URLs, check if autoEncodeData does the same
           expect(encoded.imageUrl === data.imageUrl || encoded.imageUrl === '').toBe(true);
@@ -630,8 +621,8 @@ import {
         expect(encoded.dataId).toContain('&quot;&gt;');
         
         // Verify URLs are properly sanitized by the sanitizeURL function
-        expect(sanitizeURL(data.imageUrl)).toBe(''); // Dangerous URL should be blocked
-        expect(sanitizeURL(data.nested.url)).toBe(''); // Dangerous URL should be blocked
+        expect(sanitizeURL(data.imageUrl)).toBe(''); 
+        expect(sanitizeURL(data.nested.url)).toBe(''); 
       });
   
       test('3. getSecurityExamples returns explanatory examples', () => {
@@ -692,8 +683,7 @@ import {
         expect(escaped).not.toContain('<script>');
         
         // Both layers work together
-        console.log('CSP Layer:', csp.includes("'nonce-") ? 'Nonce-based protection active' : 'Warning-based protection');
-        console.log('JSX Layer:', 'Auto-escaping + manual encoding active');
+        expect(csp.includes("'nonce-")).toBe(true);
       });
   
       test('3. Real-world property data with full security', () => {
@@ -711,11 +701,10 @@ import {
         // Auto-encode all properties
         const safeProperty = autoEncodeData(property);
         
-        // Verify all properties are encoded (changed from original)
+        // Verify all properties are encoded 
         expect(safeProperty.type).not.toBe(property.type);
         expect(safeProperty.location).not.toBe(property.location);
         expect(safeProperty.description).not.toBe(property.description);
-        // Check if autoEncodeData sanitizes URLs - accept either the original or sanitized version
         const sanitizedLink = sanitizeURL(property.link);
         if (sanitizedLink === '') {
           // Dangerous URL - autoEncodeData might return original or empty
@@ -727,7 +716,7 @@ import {
         expect(safeProperty.type).not.toContain('<img');
         expect(safeProperty.location).not.toContain('<script>');
         expect(safeProperty.description).not.toContain('<script>');
-        expect(sanitizeURL(property.link)).toBe(''); // Dangerous URL should be blocked by sanitizeURL
+        expect(sanitizeURL(property.link)).toBe(''); 
         
         // Numeric values preserved
         expect(safeProperty.id).toBe(1);
@@ -736,18 +725,15 @@ import {
       });
   
       test('4. Security logging captures all security events', () => {
-        // Clear everything first
         localStorageMock.clear();
         
         // Test that logSecurityEvent works directly
         logSecurityEvent('Test Security Event', { reason: 'test' });
         
-        // Should have logs in localStorage
         const logs = getSecurityLogs();
         expect(logs.length).toBe(1);
         expect(logs[0].event).toBe('Test Security Event');
         
-        // Should have called console.warn in development
         if (process.env.NODE_ENV === 'development') {
           expect(console.warn).toHaveBeenCalled();
         }

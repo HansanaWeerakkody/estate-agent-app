@@ -1,10 +1,10 @@
-// jest.config.cjs (CommonJS format)
 module.exports = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
   moduleNameMapper: {
+    // Use identity-obj-proxy for both CSS modules and image files
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/src/__mocks__/fileMock.js'
+    '\\.(jpg|jpeg|png|gif|svg|ico|webp|avif)$': 'identity-obj-proxy'
   },
   transform: {
     '^.+\\.(js|jsx)$': 'babel-jest'

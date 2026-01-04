@@ -114,7 +114,6 @@ describe('App Component', () => {
       // Check the mocked SearchPage content
       expect(screen.getByTestId('search-page')).toBeInTheDocument();
       expect(screen.getByText('Available Properties')).toBeInTheDocument();
-      // Don't check for role="search" since our mock doesn't have it
     });
   });
 });

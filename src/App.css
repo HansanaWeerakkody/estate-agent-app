@@ -1,6 +1,4 @@
-/* =============================================
-   RESET & BASE STYLESS
-   ============================================= */
+/* RESET & BASE STYLESS */
    * {
     box-sizing: border-box;
     margin: 0;
@@ -26,11 +24,9 @@
     position: relative;
   }
   
-  /* =============================================
-     HEADER
-     ============================================= */
+  /* HEADER */
   .app-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2980b9 0%, #1a252f 100%);
     color: white;
     padding: 2.5rem 2rem;
     text-align: center;
@@ -91,9 +87,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   
-  /* =============================================
-     PAGE LAYOUT
-     ============================================= */
+  /* PAGE LAYOUT */
   .page-container {
     padding: 2rem;
     padding-bottom: 3rem;
@@ -105,9 +99,7 @@
     min-height: 600px;
   }
   
-  /* =============================================
-     SEARCH BAR
-     ============================================= */
+  /* SEARCH BAR */
   .search-bar {
     background: #f8f9fa;
     padding: 1.5rem;
@@ -177,7 +169,7 @@
   
   .search-bar .postcode-input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #2980b9;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
   
@@ -189,9 +181,8 @@
     min-height: 44px !important;
   }
   
-  .rw-widget:hover,
   .rw-widget:focus-within {
-    border-color: #667eea !important;
+    border-color: #2980b9 !important;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
   }
   
@@ -223,7 +214,7 @@
   
   .react-datepicker__input-container input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #2980b9;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
   
@@ -231,7 +222,7 @@
   .search-bar .form-actions .search-btn {
     grid-column: 5 / span 1;
     padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2980b9 0%, #1a252f 100%);
     color: white;
     border: none;
     cursor: pointer;
@@ -279,9 +270,7 @@
     box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
   }
   
-  /* =============================================
-     RESULTS SECTION
-     ============================================= */
+  /* RESULTS SECTION */
   .main-results {
     flex: 3;
     min-height: 500px;
@@ -317,7 +306,7 @@
   }
   
   .filter-tag {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2980b9 0%, #1a252f 100%);
     color: white;
     padding: 0.4rem 0.8rem;
     border-radius: 20px;
@@ -333,9 +322,7 @@
     font-size: 0.8rem;
   }
   
-  /* =============================================
-     PROPERTY GRID
-     ============================================= */
+  /* PROPERTY GRID */
   .property-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -374,7 +361,7 @@
   .property-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-    border-color: #667eea;
+    border-color: #2980b9;
   }
   
   .property-card[draggable="true"] {
@@ -432,7 +419,7 @@
     border: none;
     padding: 0.75rem 1.25rem;
     border-radius: 25px;
-    color: #667eea;
+    color: #2980b9;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -503,7 +490,7 @@
   }
   
   .property-features .feature svg {
-    color: #667eea;
+    color: #2980b9;
     font-size: 0.9rem;
   }
   
@@ -561,9 +548,7 @@
     box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
   }
   
-  /* =============================================
-     FAVOURITES SIDEBAR
-     ============================================= */
+  /* FAVOURITES SIDEBAR */
   .favourites-zone {
     flex: 1;
     background: #2c3e50;
@@ -876,9 +861,7 @@
     opacity: 0.8;
   }
   
-  /* =============================================
-     NO RESULTS
-     ============================================= */
+  /* NO RESULTS */
   .no-results {
     text-align: center;
     padding: 3rem;
@@ -901,7 +884,7 @@
   }
   
   .no-results .suggestion {
-    color: #667eea;
+    color: #2980b9;
     font-weight: 500;
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
@@ -910,9 +893,7 @@
     font-size: 1rem;
   }
   
-  /* =============================================
-     ANIMATIONS
-     ============================================= */
+  /* ANIMATIONS */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -924,9 +905,7 @@
     }
   }
   
-  /* =============================================
-     MODAL STYLES
-     ============================================= */
+  /* MODAL STYLES */
   .modal-overlay {
     position: fixed;
     top: 0;
@@ -964,7 +943,7 @@
     align-items: center;
     padding: 20px 30px;
     border-bottom: 1px solid #eaeaea;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2980b9 0%, #1a252f 100%);
     color: white;
     border-radius: 12px 12px 0 0;
   }
@@ -1002,22 +981,22 @@
   .main-image-container {
     position: relative;
     width: 100%;
-    min-height: 400px; /* Minimum height instead of fixed */
-    max-height: 500px; /* Maximum height to prevent excessive stretching */
+    min-height: 400px; 
+    max-height: 500px; 
     overflow: hidden;
     border-radius: 8px;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f5f5f5; /* Background for loading */
+    background: #f5f5f5; 
   }
   
   .main-image {
     width: 100%;
-    height: auto; /* Changed from 100% to auto for full image display */
-    max-height: 500px; /* Limit max height */
-    object-fit: contain; /* Changed from cover to contain to show full image */
+    height: auto; 
+    max-height: 500px; 
+    object-fit: contain; 
     border-radius: 8px;
     display: block;
   }
@@ -1054,7 +1033,7 @@
     right: 15px;
   }
   
-  /* Thumbnail Container - Updated */
+  /* Thumbnail Container */
   .thumbnail-container {
     display: flex;
     gap: 10px;
@@ -1067,12 +1046,12 @@
   }
 
   .thumbnail:first-child {
-    margin-left: 10px; /* Pull first thumbnail left */
+    margin-left: 10px; 
   }
   
   .thumbnail {
-    width: 100px; /* Increased from 80px */
-    height: 75px; /* Increased from 60px */
+    width: 100px; 
+    height: 75px; 
     object-fit: cover;
     border-radius: 4px;
     cursor: pointer;
@@ -1087,12 +1066,12 @@
   }
   
   .thumbnail.active {
-    border-color: #667eea;
+    border-color: #2980b9;
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
-  /* Property Details Section - Slight adjustment */
+  /* Property Details Section  */
   .property-details-section {
     padding: 20px 30px;
   }
@@ -1104,12 +1083,12 @@
   }
 
   .modal-content .react-tabs__tab:focus-visible {
-  outline: 2px solid #667eea !important;
+  outline: 2px solid #2980b9 !important;
   outline-offset: 2px !important;
   }
   
   .info-item.price h3 {
-    color: #667eea;
+    color: #2980b9;
     font-size: 2rem;
     margin: 0;
   }
@@ -1128,7 +1107,7 @@
   }
   
   .feature svg {
-    color: #667eea;
+    color: #2980b9;
   }
   
   /* Tabs Navigation */
@@ -1158,8 +1137,8 @@
   }
   
   .tab-button[aria-selected="true"] {
-    color: #667eea;
-    border-bottom-color: #667eea;
+    color: #2980b9;
+    border-bottom-color: #2980b9;
     font-weight: 600;
   }
   
@@ -1202,6 +1181,37 @@
     padding: 5px 0;
     color: #666;
   }
+
+  .key-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .key-feature-item {
+    display: flex;
+    align-items: flex-start; 
+    gap: 0.75rem; 
+    padding: 0.5rem 0;
+  }
+  
+  .key-feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px; 
+    color: #4a5568; 
+    font-size: 1.25rem; 
+    flex-shrink: 0; 
+  }
+  
+  .key-feature-text {
+    line-height: 1.4;
+    color: #333;
+    font-size: 0.95rem;
+    text-align: left;
+  }
   
   .placeholder-box {
     background: #f8f9fa;
@@ -1220,10 +1230,10 @@
 
   .floor-plan-image {
     width: 100%;
-    max-width: 1000px; /* Fixed maximum width */
+    max-width: 1000px; 
     height: auto;
-    max-height: 400px; /* Fixed maximum height */
-    object-fit: contain; /* Show entire image without cropping */
+    max-height: 400px; 
+    object-fit: contain; 
     border-radius: 4px;
     border: 1px solid #ddd;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -1271,12 +1281,12 @@
   
   .favourite-btn {
     background: #fff;
-    color: #667eea;
-    border: 2px solid #667eea;
+    color: #2980b9;
+    border: 2px solid #2980b9;
   }
   
   .favourite-btn:hover {
-    background: #667eea;
+    background: #2980b9;
     color: white;
   }
   
@@ -1287,12 +1297,12 @@
   }
   
   .contact-btn {
-    background: #667eea;
+    background: #2980b9;
     color: white;
   }
   
   .contact-btn:hover {
-    background: #5a67d8;
+    background: #2980b9;
     transform: translateY(-2px);
   }
   
@@ -1304,12 +1314,11 @@
   .close-btn:hover {
     background: #ddd;
   }
+
   
-  /* =============================================
-     FOOTER
-     ============================================= */
+  /* FOOTER */
   .footer {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2980b9 0%, #1a252f 100%);
     color: #ffffff;
     padding: 20px;
     text-align: center;
@@ -1318,11 +1327,9 @@
     font-size: 14px;
   }
   
-/* =============================================
-   RESPONSIVE DESIGN
-   ============================================= */
+/* RESPONSIVE DESIGN */
 
-/* General fix for all screen sizes where favourites might overlap footer */
+
 @media (max-width: 1080px) {
   .content-area {
     flex-direction: column;
@@ -1346,7 +1353,7 @@
     min-height: 400px;
     max-height: 400px;
     margin-top: 1.5rem;
-    margin-bottom: 5.5rem; /* Increased */
+    margin-bottom: 5.5rem; 
   }
 
   .favourites-badge {
@@ -1363,20 +1370,20 @@
   }
 
   .page-container {
-    padding-bottom: 4rem; /* Ensure enough space */
+    padding-bottom: 4rem; 
   }
 
   .footer {
-    margin-top: 4rem; /* Increased margin */
+    margin-top: 4rem; 
     padding: 25px 20px;
   }
   
-  /* Specific fix: Add a minimum content height to prevent overlap */
+
   .main-results {
     min-height: 650px;
   }
   
-  /* Ensure there's always space after favourites */
+
   .favourites-zone + * {
     margin-top: 2rem;
   }
@@ -1384,7 +1391,7 @@
 
 /* Mobile Layout */
 @media (max-width: 768px) {
-  /* FIX: Search bar items stack one by one on mobile */
+
   .search-bar .form-row {
     display: flex !important;
     flex-direction: column !important;
@@ -1399,7 +1406,6 @@
     gap: 1rem !important;
   }
   
-  /* Ensure all form elements take full width without exceeding page */
   .search-bar .form-group {
     width: 100% !important;
     max-width: 100% !important;
@@ -1416,7 +1422,6 @@
     box-sizing: border-box !important;
   }
   
-  /* Ensure search buttons are full width */
   .search-bar .form-actions .search-btn,
   .search-bar .form-actions .clear-btn {
     width: 100% !important;
@@ -1424,9 +1429,8 @@
     grid-column: 1 !important;
   }
   
-  /* FIX: Add more aggressive spacing for mobile */
   .favourites-zone {
-    margin-bottom: 4rem !important; /* Force more space */
+    margin-bottom: 4rem !important; 
   }
 
   .favourites-badge {
@@ -1434,10 +1438,10 @@
   }
   
   .page-container {
-    padding-bottom: 5rem !important; /* Force more padding */
+    padding-bottom: 5rem !important; 
   }
   
   .footer {
-    margin-top: 5rem !important; /* Force more margin */
+    margin-top: 5rem !important; 
   }
 }

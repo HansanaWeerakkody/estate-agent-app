@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import PropertyList from '../Components/PropertyList';
 
-// Mock the PropertyCard component - CORRECT PATH
+// Mock the PropertyCard component
 jest.mock('../Components/PropertyCard', () => {
   return function MockPropertyCard({ property }) {
     return (

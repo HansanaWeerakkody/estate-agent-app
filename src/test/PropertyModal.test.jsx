@@ -2,23 +2,23 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import PropertyModal from '../Components/PropertyModal';
 
-// UPDATED: Match the actual property data structure
+// Match the actual property data structure
 const mockProperty = {
-  id: "prop1", // Changed from number to string
+  id: "prop1", 
   type: 'House',
   price: 500000,
   bedrooms: 3,
   location: '123 Test Street, London, BR5',
   description: '<p>A beautiful <strong>house</strong> in London with garden.</p>',
-  picture: './images/prop1pic1.jpg', // Updated to match actual path
+  picture: './images/prop1pic1.jpg', 
   tenure: 'Freehold',
   added: { day: 1, month: 'January', year: 2023 },
-  images: [ // ADDED: Required array
+  images: [ 
     './images/prop1pic1.jpg',
     './images/prop1pic2.jpg',
     './images/prop1pic3.jpg'
   ],
-  floorPlan: './images/floorplan1.png' // ADDED: Optional but good to include
+  floorPlan: './images/floorplan1.png' 
 };
 
 const mockOnClose = jest.fn();
@@ -46,7 +46,7 @@ describe('PropertyModal Component', () => {
     const priceElement = screen.getByText(/£500,000/i);
     expect(priceElement).toBeInTheDocument();
     
-    // Check bedrooms - fixed selector
+    // Check bedrooms 
     const bedroomElement = screen.getByText(/3 Bedroom(s)?/);
     expect(bedroomElement).toBeInTheDocument();
     

@@ -114,7 +114,6 @@ export const generateCSPHeaders = (options = {}) => {
    
   export const generateCSPMetaTag = (options = {}) => {
     const csp = generateCSPHeaders(options);
-    // Must escape HTML in the meta tag content
     const escapedCSP = escapeHTML(csp);
     return `<meta http-equiv="Content-Security-Policy" content="${escapedCSP}">`;
   };
@@ -415,7 +414,7 @@ export const generateCSPHeaders = (options = {}) => {
       
       return encodeURI(parsed.href);
     } catch {
-      // Not an absolute URL - check if it's a safe relative URL
+      // check if it's a safe relative URL
       const safeRelativePatterns = [
         /^\/[^<>]*$/,           // Root-relative URLs
         /^#[^<>]*$/,            // Fragment identifiers
@@ -666,7 +665,6 @@ export const generateCSPHeaders = (options = {}) => {
         } else if (key.includes('script') || key.includes('code')) {
           encoded[key] = escapeJavaScript(value);
         } else if (key.startsWith('on')) {
-          // Event handlers should be functions, not strings
           encoded[key] = value;
         } else if (key.includes('attr') || key.startsWith('data-') || key.includes('aria-')) {
           encoded[key] = escapeJSXAttr(value);
